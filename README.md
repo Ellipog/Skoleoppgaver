@@ -1,3 +1,3 @@
 # Skoleoppgaver_Elliot
 
-Alex er en koselig kar
+>>Alex er en koselig kar
