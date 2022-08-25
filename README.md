@@ -1,3 +1,3 @@
 # Skoleoppgaver_Elliot
 
-Laex er en liten bitch <3
+Alex er en **n****r**
