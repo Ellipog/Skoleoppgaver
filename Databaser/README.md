@@ -4,19 +4,19 @@ Gjort 👍
 ## Oppgave 2
 a)
 ```sql
-SELECT * FROM elev WHERE kjonn = 'F';
+SELECT * FROM elev WHERE kjonn = 'J';
 ```
 
 
 b)
 ```sql
-SELECT * FROM elev WHERE kjonn = 'M' AND klasse = '2';
+SELECT * FROM elev WHERE kjonn = 'G' AND klasse = '2';
 ```
 
 
 c)
 ```sql
-SELECT * FROM elev WHERE kjonn = 'F' AND klasse = '2';
+SELECT * FROM elev WHERE kjonn = 'J' AND klasse = '2';
 ```
 
 
