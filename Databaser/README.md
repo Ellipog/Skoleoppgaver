@@ -37,3 +37,8 @@ f)
 SELECT * FROM elev WHERE hobby = 'Fotball';
 ```
 
+## Oppgave 3
+Gjort 👍
+
+## Oppgave 4
+Gjort 👍
