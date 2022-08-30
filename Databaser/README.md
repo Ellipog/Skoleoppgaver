@@ -42,3 +42,6 @@ Gjort 👍
 
 ## Oppgave 4
 Gjort 👍
+
+## Oppgave 5
+Det er nødvendig for at man kan finne hvilken PC en elev har mye lettere, det kan også brukes til å finne all annen info. 
