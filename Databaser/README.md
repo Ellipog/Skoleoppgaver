@@ -45,3 +45,11 @@ Gjort 👍
 
 ## Oppgave 5
 Det er nødvendig for at man kan finne hvilken PC en elev har mye lettere, det kan også brukes til å finne all annen info. 
+
+## Oppgave 6
+```sql
+SELECT students.fname, students.lname, computers.brand, computers.model
+FROM students
+INNER JOIN computers ON students.computer=computers.uid
+WHERE fname = 'Hanna' OR fname = 'Martin';
+```
