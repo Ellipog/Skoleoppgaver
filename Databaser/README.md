@@ -48,8 +48,8 @@ Det er nødvendig for at man kan finne hvilken PC en elev har mye lettere, det k
 
 ## Oppgave 6
 ```sql
-SELECT students.fname, students.lname, computers.brand, computers.model
-FROM students
-INNER JOIN computers ON students.computer=computers.uid
-WHERE fname = 'Hanna' OR fname = 'Martin';
+SELECT elev.fornavn, elev.etternavn, datamaskin.datamaskinmerke
+FROM elev
+INNER JOIN datamaskin ON elev.datamaskin=datamaskin.dataid
+WHERE fornavn = 'Hanna' OR fornavn = 'Martin';
 ```
