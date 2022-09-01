@@ -51,3 +51,9 @@ SELECT fornavn
 FROM elev
 ORDER BY fornavn ASC;
 ```
+
+## Oppgave 8
+```sql
+SELECT elev.klasse FROM elev
+GROUP BY elev.klasse HAVING COUNT(klasse) > 1 ORDER BY `elev`.`klasse` ASC;
+```
