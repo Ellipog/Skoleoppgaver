@@ -53,3 +53,10 @@ FROM elev
 INNER JOIN datamaskin ON elev.datamaskin=datamaskin.dataid
 WHERE fornavn = 'Hanna' OR fornavn = 'Martin';
 ```
+
+## Oppgave 7
+```sql
+SELECT fornavn
+FROM elev
+ORDER BY fornavn ASC;
+```
