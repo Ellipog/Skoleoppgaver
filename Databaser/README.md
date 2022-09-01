@@ -64,14 +64,14 @@ UPDATE `elev` SET `Hobby`='Golf'
 WHERE Fornavn = "Martin";
 ```
 
-## Oppgave 9
+## Oppgave 10
 ```sql
 INSERT 
 INTO `elev`(`ElevID`, `Fornavn`, `Etternavn`, `Klasse`, `Hobby`, `kjonn`, `Datamaskin`) 
 VALUES ('11','Trygve','Melvold','2','Gaming','G','2');
 ```
 
-## Oppgave 9
+## Oppgave 11
 ```sql
 DELETE FROM `elev` 
 WHERE ElevID = 11;
