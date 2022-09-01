@@ -57,3 +57,22 @@ ORDER BY fornavn ASC;
 SELECT elev.klasse FROM elev
 GROUP BY elev.klasse HAVING COUNT(klasse) > 1 ORDER BY `elev`.`klasse` ASC;
 ```
+
+## Oppgave 9
+```sql
+UPDATE `elev` SET `Hobby`='Golf' 
+WHERE Fornavn = "Martin";
+```
+
+## Oppgave 9
+```sql
+INSERT 
+INTO `elev`(`ElevID`, `Fornavn`, `Etternavn`, `Klasse`, `Hobby`, `kjonn`, `Datamaskin`) 
+VALUES ('11','Trygve','Melvold','2','Gaming','G','2');
+```
+
+## Oppgave 9
+```sql
+DELETE FROM `elev` 
+WHERE ElevID = 11;
+```
