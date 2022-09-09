@@ -76,3 +76,6 @@ VALUES ('11','Trygve','Melvold','2','Gaming','G','2');
 DELETE FROM `elev` 
 WHERE ElevID = 11;
 ```
+
+## Oppgave 12
+Gjort, ligger filen i denne mappen! 
