@@ -1,29 +1,45 @@
+# Engelsk-språklig applikasjon 
 
-# Engelsk-språklig applikasjon
+## Behovsanalyse 
 
-## Behovsanalyse
+#### Hvilke utfordringer har brukeren? 
 
-#### Hvilke utfordringer har brukeren?
-#### Hvilke interesser har brukeren?
+Høre tekst. 
+Svar alternativer. 
 
-Brukeren har vanskelig for å lære seg språk, spesielt engelsk.
-Hun observerer at engelsk er et nyttig språk, som kommer igjen i mange sammenhenger.
-Brukeren liker spill og har konkurranse-instinkt. Motivasjonen øker når man ser fremgang i læringen, i form av poeng og økt mestringsfølelse.
+#### Hvilke interesser har brukeren? 
 
-## Applikasjon
+Musikk, sport, spill. 
 
-#### Hva er applikasjonen?
+Brukeren har vanskelig for å lære seg språk, spesielt engelsk. 
+Hun observerer at engelsk er et nyttig språk, som kommer igjen i mange sammenhenger. 
+Brukeren liker spill og har konkurranse-instinkt. Motivasjonen øker når man ser fremgang i læringen, i form av poeng og økt mestringsfølelse. 
 
-Applikasjonen er et TRUE-FALSE spill, som skal gi brukeren ett riktig svar og et feil svar.
-Brukeren starter med 0 poeng og får ett poeng for riktig svar.
-Når alle 10 spørsmålene er stilt, får man en poeng-Score, og gis muligheten til å starte igjen.
-Det skal være to måter å visualisere spørsmålet på:
+## Applikasjon 
 
-1. Et bilde. Hva er dette på engelsk? Deretter svaralternativer.
-2. Fortelle et ord på norsk, og deretter spørre hva det heter på engelsk.
-Her skal det være et tekstfelt, som brukeren skal skrive inn.
+#### Hva er applikasjonen? 
 
-## Fremgangsmøte
+Spill. 
+Poengscore. 
+Pugge matte. 
+Main page fler mattekategorier. 
+Løse oppgaver for å få poeng. 
+Quiz. 
+Alternativer, skrive hva man ser i et bilde. 
+Forskjellige temaer og vannskelighetsgrader. 
+Knapp for å lese opp spørsmål. 
+Gym app: bilde av kroppen med markert farge, velg hvilken muskel som er markert eller velg hva man trener på bildet. 
+
+Applikasjonen er et TRUE-FALSE spill, som skal gi brukeren ett riktig svar og et feil svar. 
+Brukeren starter med 0 poeng og får ett poeng for riktig svar. 
+Når alle 10 spørsmålene er stilt, får man en poeng-Score, og gis muligheten til å starte igjen. 
+Det skal være to måter å visualisere spørsmålet på: 
+
+1. Et bilde. Hva er dette på engelsk? Deretter svaralternativer. 
+2. Fortelle et ord på norsk, og deretter spørre hva det heter på engelsk. 
+Her skal det være et tekstfelt, som brukeren skal skrive inn. 
+
+## Fremgangsmøte 
 
 #### Database
 
