@@ -4,8 +4,7 @@
 
 #### Hvilke utfordringer har brukeren? 
 
-Lese tekst. 
-Svare selv. 
+Vannskelig å lese tekst og skrive svar selv. 
 
 #### Hvilke interesser har brukeren? 
 
