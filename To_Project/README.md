@@ -19,13 +19,6 @@ Spillet skal inneholde musikk og sport så mye som det lar seg gå, uten at det 
 
 #### Hva er applikasjonen? 
 
-Spill. 
-Poengscore. 
-Pugge matte. 
-Main page fler mattekategorier. 
-Løse oppgaver for å få poeng. 
-Quiz. 
-Alternativer, skrive hva man ser i et bilde. 
 Forskjellige temaer og vannskelighetsgrader. 
 Knapp for å lese opp spørsmål. 
 Gym app: bilde av kroppen med markert farge, velg hvilken muskel som er markert eller velg hva man trener på bildet. 
