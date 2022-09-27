@@ -22,7 +22,7 @@ db.connect(err => {
 })
 
 api.get('/start', (req, res) => {
-    res.send('Hei tobias')
+    res.send({ test: 'Hei tobias' })
 });
 
 api.listen(port, () => {
