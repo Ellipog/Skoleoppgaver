@@ -12,6 +12,7 @@ const db = mysql.createConnection({
     password: '',
     database: 'dromtorp'
 })
+
 db.connect(err => {
     if (err) {
         throw err;
@@ -28,3 +29,13 @@ api.get('/start', (req, res) => {
 api.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
+api.get('/test', (req, res) => {
+    let sql = 'SELECT * FROM elev';
+    db.query(sql, (error, results, fields) => {
+        if (error) {
+            return console.error(error.message);
+        }
+        res.json(results);
+    });
+});
