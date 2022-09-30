@@ -1,11 +1,8 @@
-function getRequest() {
-    fetch('http://localhost:3000/start')
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-}
+function getElev() {
 
-function test() {
-    fetch('http://localhost:3000/test')
+    var input_fornavn = document.getElementById("FornavnInput").value;
+
+    fetch('http://localhost:3000/getElev/' + input_fornavn)
         .then((response) => response.json())
         .then(
 
@@ -29,4 +26,39 @@ function test() {
                 }
             }
         );
+}
+
+
+function updateRow() {
+
+    var input_elevid = document.getElementById("hvilket_elevid_update").value;
+    var input_hobby = document.getElementById("hvilken_hobby").value;
+
+    var url = 'http://localhost:3000/updaterow/' + input_elevid;
+
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+}
+
+function deleteRow() {
+
+    var input_elevid = document.getElementById("hvilken_elev").value;
+
+    var url = 'http://localhost:3000/deleterow/' + input_elevid;
+
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+}
+
+function insertRow() {
+
+    var input_elevid = document.getElementById("hvilken_elevid_insert").value;
+    var input_fornavn = document.getElementById("fornavn_insert").value;
+    var input_etternavn = document.getElementById("etternavn_insert").value;
+    var input_hobby = document.getElementById("hobby_insert").value;
+    var input_kjonn = document.getElementById("kjonn_insert").value;
+    var input_programfag = document.getElementById("programfag_insert").value;
+    var input_datamaskin = document.getElementById("datamaskin_insert").value;
 }

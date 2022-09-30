@@ -22,16 +22,13 @@ db.connect(err => {
 
 })
 
-api.get('/start', (req, res) => {
-    res.send({ test: 'Hei tobias' })
-});
-
 api.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
-api.get('/test', (req, res) => {
-    let sql = 'SELECT * FROM elev';
+api.get('/getElev/:fornavn', (req, res) => {
+    var getFornavn = req.params.fornavn;
+    let sql = 'SELECT * FROM elev where fornavn LIKE "' + getFornavn + '%"';
     db.query(sql, (error, results, fields) => {
         if (error) {
             return console.error(error.message);

@@ -11,10 +11,31 @@
     <center>
         <h1>Heisann</h1>
         <p>Denne oppgaven er om Express API</p>
-        <button onclick="getRequest()"> trykk på meg ellerno </button>
-        <button onclick="test()"> trykk på meg ellerno </button>
+        <input type="text" placeholder="Fornavn" id="FornavnInput"><br><br>
+        <button onclick="getElev()"> Få info om elev </button><br><br>
         <table id="getTable">
-        </table>
+            <tr>
+                <th>ElevID</th>
+                <th>Fornavn</th>
+                <th>Etternavn</th>
+                <th>Klasse</th>
+                <th>Hobby</th>
+                <th>Kjønn</th>
+                <th>Datamaskin</th>
+            </tr>
+            <tr>
+                <th>?</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </table><br><br>
+        <button onclick="updateRow()"> Oppdater info </button>
+        <button onclick="deleteRow()"> Slett elev </button>
+        <button onclick="createElev()"> Legg til en ny elev </button>
     </center>
     <script src="JS/index.js"></script>
 </body>
