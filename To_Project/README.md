@@ -1,36 +1,26 @@
-# Engelsk-språklig applikasjon 
 
-## Behovsanalyse 
+# Engelsk-språklig applikasjon
 
-#### Hvilke utfordringer har brukeren? 
+## Behovsanalyse
 
-Vannskelig å lese tekst og skrive svar selv. 
+#### Hvilke utfordringer har brukeren?
+#### Hvilke interesser har brukeren?
 
-#### Hvilke interesser har brukeren? 
 
-Musikk, sport, spill. 
+## Applikasjon
 
-Brukeren syntes det er vannskelig å lese teksten selv, og svare med tekst input. Så vi skal ha en funksjon hvor spilleren kan trykke på en knapp
-for å få teksten lest opp for seg. Og svaralternativer istedet for tekst input. 
-Spillet skal inneholde musikk og sport så mye som det lar seg gå, uten at det gjør spillet mindre lærerikt. 
+#### Hva er applikasjonen?
 
-## Applikasjon 
+Applikasjonen er et TRUE-FALSE spill, som skal gi brukeren ett riktig svar og et feil svar.
+Brukeren starter med 0 poeng og får ett poeng for riktig svar.
+Når alle 10 spørsmålene er stilt, får man en poeng-Score, og gis muligheten til å starte igjen.
+Det skal være to måter å visualisere spørsmålet på:
 
-#### Hva er applikasjonen? 
+1. Et bilde. Hva er dette på engelsk? Deretter svaralternativer.
+2. Fortelle et ord på norsk, og deretter spørre hva det heter på engelsk.
+Her skal det være et tekstfelt, som brukeren skal skrive inn.
 
-Forskjellige temaer og vannskelighetsgrader. 
-Knapp for å lese opp spørsmål. 
-Gym app: bilde av kroppen med markert farge, velg hvilken muskel som er markert eller velg hva man trener på bildet. 
-
-Applikasjonen er et gym spill, hvor spilleren får et bilde av en person som gjør et styrkeøvelse. 
-Så får spilleren 4 svaralternativer, hvert alternativ er et bilde av en person, med muskler uthevet med farge. 
-Da skal spilleren trykke på riktig bilde av muskler for hva som blir trent i bilde av øvelsen. 
-Brukeren starter med 0 poeng og får ett poeng for riktig svar. 
-Det skal være en måte å visualisere spørsmålet på: 
-
-1. Et bilde. Deretter svaralternativer. 
-
-## Fremgangsmøte 
+## Fremgangsmøte
 
 #### Database
 
@@ -40,17 +30,28 @@ Skal lage en MYSQL - database som lagrer hvor mange poeng spilleren har etter en
 
   | BrukerID       | Brukernavn    | Passord |
   | -------------- |:-------------:| -------:|
-  | 1              | Per Arne      | ADNI24  |
+  | 1              | 20.08.1991    | 3       |
 
   Forslag til tabell 2 - Spill:
 
-  | BrukerID       | Dato          | Poeng | Brukernavn |
-  | -------------- |:-------------:| -----:| ---------: |
-  | 1              | 20.08.1991    | 3     | Per Arne   |
+  | spillID        | Dato          | Poeng | Person |
+  | -------------- |:-------------:| -----:| -----: |
+  | 1              | 20.08.1991    | 3     | 1      |
 
-  på med primærnøkkelen fra BrukerID-tabellen for hvert spill.
-  BrukerID-tabellen skal brukes til innlogging.
-  Poengscoren til hver person blir så lagt på et leaderboard. 
+  Person-kolonnen i Spill - tabellen er en fremmednøkkel som skal fylles
+  på med primærnøkkelen fra Person-tabellen for hvert spill.
+  Person-tabellen skal brukes til innlogging.
+
+#### HTML, CSS og Javascript
+
+- Spillet trenger en innloggingsside, som kobler opp informasjon fra databasen
+med informasjonen i innloggingsfeltet.
+- Stylingen er "clean", med et stort bakgrunnsbilde på alle slides.
+- Spillet skal ha en velkommen side (start spillet-side) og start spillet-knapp.
+- Når man har svart, så kommer det opp at brukeren har tatt riktig eller feil.
+Spilleren blir "tvunget" med til neste spørsmål.
+- På Hver side skal det stå hvor langt spilleren har kommet i spillet.
+For eksempel 1/10 på først slide, 2/10 på andre slide.
 
 #### Node - backend service.
 
