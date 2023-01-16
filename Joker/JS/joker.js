@@ -34,7 +34,7 @@ class Joker {
     document.getElementById("down0").innerHTML = "&#8250;";
     this.index = 0;
   }
-  //KLASSER FOR PILEN, ROTERT, LEGGES TIL FOR OPPGAVEN ETTER, STØRRELSE
+  //KLASSER FOR PILEN, ROTERT, LEGGES TIL FOR OPPGAVEN ETTER, STØRRELSE, FARGE
   next(dir) {
     if (dir === "up") {
       if (this.answers[this.index] >= this.middle[this.index]) {
