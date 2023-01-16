@@ -7,6 +7,8 @@ class Joker {
     this.points = 0;
   }
 
+  //LEGGE TIL PILER PÅ OPP OG NED KNAPPENE
+
   startGame() {
     for (let i = 0; i < 5; i++) {
       let randomMiddle = Math.floor(Math.random() * 10);
@@ -28,9 +30,11 @@ class Joker {
     }
     document.getElementById("up0").disabled = false;
     document.getElementById("down0").disabled = false;
+    document.getElementById("up0").innerHTML = "&#8249;";
+    document.getElementById("down0").innerHTML = "&#8250;";
     this.index = 0;
   }
-
+  //KLASSER FOR PILEN, ROTERT, LEGGES TIL FOR OPPGAVEN ETTER, STØRRELSE
   next(dir) {
     if (dir === "up") {
       if (this.answers[this.index] >= this.middle[this.index]) {
