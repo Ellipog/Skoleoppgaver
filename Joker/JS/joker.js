@@ -1,63 +1,91 @@
 class Joker {
-    constructor(name) {
-        this.name = name;
-        this.middle = []; //5 tall
-        this.answers = []; //5 tall
-        this.index = 0;
+  constructor(name) {
+    this.name = name;
+    this.middle = []; //5 tall
+    this.answers = []; //5 tall
+    this.index = 0;
+    this.points = 0;
+  }
+
+  startGame() {
+    for (let i = 0; i < 5; i++) {
+      let randomMiddle = Math.floor(Math.random() * 10);
+      let randomAnswer = Math.floor(Math.random() * 10);
+
+      this.middle.push(randomMiddle);
+      this.answers.push(randomAnswer);
+
+      document.getElementById("btn" + i.toString()).innerHTML = randomMiddle.toString();
+
+      document.getElementById("up" + i.toString()).disabled = true;
+      document.getElementById("down" + i.toString()).disabled = true;
+      document.getElementById("up" + i.toString()).textContent = "";
+      document.getElementById("down" + i.toString()).textContent = "";
+      document.getElementById("up" + i.toString()).classList.remove("correct");
+      document.getElementById("down" + i.toString()).classList.remove("correct");
+      document.getElementById("up" + i.toString()).classList.remove("wrong");
+      document.getElementById("down" + i.toString()).classList.remove("wrong");
     }
+    document.getElementById("up0").disabled = false;
+    document.getElementById("down0").disabled = false;
+    this.index = 0;
+  }
 
-    startGame() {
-        for (let i = 0; i < 5; i++) {
-            let randomMiddle = Math.floor(Math.random() * 10);
-            let randomAnswer = Math.floor(Math.random() * 10);
-
-            this.middle.push(randomMiddle);
-            this.answers.push(randomAnswer);
-
-            document.getElementById("btn" + i.toString()).innerHTML = randomMiddle.toString();
-
-            document.getElementById("up" + i.toString()).disabled = true;
-            document.getElementById("down" + i.toString()).disabled = true;
-            document.getElementById("up" + i.toString()).textContent = "";
-            document.getElementById("down" + i.toString()).textContent = "";
-        }
-        document.getElementById("up0").disabled = false;
-        document.getElementById("down0").disabled = false;
-        this.index = 0;
+  next(dir) {
+    if (dir === "up") {
+      if (this.answers[this.index] >= this.middle[this.index]) {
+        document.getElementById(dir + this.index.toString()).classList.add("correct");
+        this.points++;
+      } else {
+        document.getElementById(dir + this.index.toString()).classList.add("wrong");
+        this.points--;
+      }
+    } else if (dir === "down") {
+      if (this.answers[this.index] <= this.middle[this.index]) {
+        document.getElementById(dir + this.index.toString()).classList.add("correct");
+        this.points++;
+      } else {
+        document.getElementById(dir + this.index.toString()).classList.add("wrong");
+        this.points--;
+      }
     }
+    console.log(this.points);
+    document.getElementById(dir + this.index.toString()).innerHTML = this.answers[this.index];
+    document.getElementById("up" + this.index.toString()).disabled = true;
+    document.getElementById("down" + this.index.toString()).disabled = true;
 
-    next(dir) {
-        if (dir === "UP") {} else if (dir === "DO") {}
-        document.getElementById(dir + this.index.toString()).innerHTML = this.answers[this.index];
-        document.getElementById("up" + this.index.toString()).disabled = true;
-        document.getElementById("down" + this.index.toString()).disabled = true;
+    this.index++;
 
-        this.index++;
+    document.getElementById("up" + this.index.toString()).disabled = false;
+    document.getElementById("down" + this.index.toString()).disabled = false;
+    document.getElementById("btn" + this.index.toString()).disabled = false;
 
-        document.getElementById("up" + this.index.toString()).disabled = false;
-        document.getElementById("down" + this.index.toString()).disabled = false;
-        document.getElementById("btn" + this.index.toString()).disabled = false;
-
-        jokerGame.playGame();
+    jokerGame.playGame();
+    if (this.points <= 0) {
+      this.points = 0;
     }
+    console.log(this.points);
+  }
 
-    playGame() {
-        //sjekkker om spillet er slutt
-        if (this.index >= 5) {
-            console.log('du er ferdig med spillet')
-        } else {
-            document.getElementById("up" + this.index.toString()).onclick = (e) => jokerGame.next("up");
-            document.getElementById("down" + this.index.toString()).onclick = (e) => jokerGame.next("down");
-        }
+  playGame() {
+    //sjekkker om spillet er slutt
+    if (this.index >= 5) {
+      console.log("du er ferdig med spillet");
+    } else {
+      document.getElementById("up" + this.index.toString()).onclick = (e) => jokerGame.next("up");
+      document.getElementById("down" + this.index.toString()).onclick = (e) => jokerGame.next("down");
     }
+  }
 }
 
-let jokerGame = new Joker('test')
+let jokerGame = new Joker("test");
 
 document.getElementById("startButton").onclick = (e) => {
-    jokerGame.startGame();
-    jokerGame.playGame();
-}
+  jokerGame.startGame();
+  jokerGame.playGame();
+};
 
 jokerGame.startGame();
 jokerGame.playGame();
+
+console.log(jokerGame);
