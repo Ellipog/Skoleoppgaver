@@ -1,0 +1,76 @@
+@font-face {
+    font-family: Ed Gothic;
+    src: url("../fonts/ed_gothic.otf");
+}
+
+body {
+    background-image: linear-gradient(-180deg, #ffdf00, #ffb400);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    color: #c60c30;
+    margin: 0px;
+}
+
+#box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#tittel {
+    text-align: center;
+    font-size: 5em;
+    font-family: Ed Gothic, Helvetica, Arial, sans-serif;
+}
+
+#main-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 150px;
+    height: 450px;
+}
+
+.item button {
+    margin: 10px;
+    height: 150px;
+    border-radius: 100%;
+    font-size: 3em;
+}
+
+#intro {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-family: Jubel, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+#intro button {
+    margin-top: 20px;
+}
+
+.mid {
+    background-color: white;
+    border: 0px;
+}
+
+.side {
+    background-color: #c60c30;
+    border: 0px;
+}
+
+.side:disabled {
+    background-color: #ffdf00;
+    border: 0px;
+}
