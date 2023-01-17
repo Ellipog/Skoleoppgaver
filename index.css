@@ -25,6 +25,18 @@ body {
   word-break: break-all;
 }
 
+.levelimage {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: 30px;
+  font-size: 100%;
+  width: 50%;
+  height: 100%;
+  margin-left: 3%;
+  word-break: break-all;
+}
+
 #welcome {
   font-size: 3rem;
   top: 5%;
@@ -41,6 +53,7 @@ body {
 }
 
 .levels {
+  display: flex;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #b5b8bd;
   width: 65%;
@@ -56,4 +69,8 @@ body {
 
 .levels:hover {
   background-color: #717e9c;
+}
+
+#joker {
+  height: 50px;
 }
