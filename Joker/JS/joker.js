@@ -13,8 +13,8 @@ class Joker {
     this.answers = []; //5 tall
     for (let i = 0; i < 5; i++) {
       let randomMiddle = Math.floor(Math.random() * 10);
-      let randomJoker = Math.floor(Math.random() * 15);
-      if (randomJoker === 14) {
+      let randomJoker = Math.floor(Math.random() * 20);
+      if (randomJoker === 19) {
         this.randomAnswer = 10;
       } else {
         this.randomAnswer = Math.floor(Math.random() * 10);
@@ -32,6 +32,10 @@ class Joker {
       document.getElementById("down" + i.toString()).classList.remove("correct");
       document.getElementById("up" + i.toString()).classList.remove("wrong");
       document.getElementById("down" + i.toString()).classList.remove("wrong");
+      document.getElementById("up" + i.toString()).classList.remove("jump-up");
+      document.getElementById("down" + i.toString()).classList.remove("jump-up");
+      document.getElementById("up" + i.toString()).classList.remove("jump-down");
+      document.getElementById("down" + i.toString()).classList.remove("jump-down");
     }
 
     let j = 0;
