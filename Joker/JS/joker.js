@@ -13,8 +13,8 @@ class Joker {
     this.answers = []; //5 tall
     for (let i = 0; i < 5; i++) {
       let randomMiddle = Math.floor(Math.random() * 10);
-      let randomJoker = Math.floor(Math.random() * 20);
-      if (randomJoker === 19) {
+      let randomJoker = Math.floor(Math.random() * 15);
+      if (randomJoker === 14) {
         this.randomAnswer = 10;
       } else {
         this.randomAnswer = Math.floor(Math.random() * 10);
