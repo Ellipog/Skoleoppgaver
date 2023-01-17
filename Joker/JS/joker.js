@@ -36,6 +36,7 @@ class Joker {
       document.getElementById("down" + i.toString()).classList.remove("jump-up");
       document.getElementById("up" + i.toString()).classList.remove("jump-down");
       document.getElementById("down" + i.toString()).classList.remove("jump-down");
+      document.getElementById("btn" + i.toString()).classList.remove("mid-jump");
     }
 
     let j = 0;
