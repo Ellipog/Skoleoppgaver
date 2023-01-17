@@ -1,51 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="CSS/style.css" />
     <script src="JS/joker.js" defer></script>
     <title>Joker</title>
-  </head>
+    <script src="https://kit.fontawesome.com/58c6d20c6a.js" crossorigin="anonymous"></script>
+</head>
 
-  <body>
+<body>
     <div id="box">
-      <img alt="Joker" src="//www.norsk-tipping.no/staticimages/ntds/logos/joker/joker-full-color-red.svg" id="jokerIMG" />
+        <img alt="Joker" src="//www.norsk-tipping.no/staticimages/ntds/logos/joker/joker-full-color-red.svg" id="jokerIMG" />
+        <img src="img/joker-hat.png" id="jokerHat" />
 
-      <div id="tittel">Joker-kandidatens prøvespill</div>
+        <div id="tittel" class="title">Joker-kandidatens prøvespill</div>
 
-      <div id="intro">Trekk tallene og se om du vinner!</div>
+        <div id="intro">Trekk tallene og se om du vinner!</div>
 
-      <div id="main-content">
-        <div class="item">
-          <button id="up0" onclick="" type="button" disabled class="side"></button>
-          <button id="btn0" type="button" class="mid"></button>
-          <button id="down0" type="button" disabled class="side"></button>
-        </div>
-        <div class="item">
-          <button id="up1" onclick="" type="button" disabled class="side"></button>
-          <button id="btn1" type="button" class="mid"></button>
-          <button id="down1" type="button" disabled class="side"></button>
-        </div>
-        <div class="item">
-          <button id="up2" onclick="" type="button" disabled class="side"></button>
-          <button id="btn2" type="button" class="mid"></button>
-          <button id="down2" type="button" disabled class="side"></button>
-        </div>
-        <div class="item">
-          <button id="up3" onclick="" type="button" disabled class="side"></button>
-          <button id="btn3" type="button" class="mid"></button>
-          <button id="down3" type="button" disabled class="side"></button>
-        </div>
-        <div class="item">
-          <button id="up4" onclick="" type="button" disabled class="side"></button>
-          <button id="btn4" type="button" class="mid"></button>
-          <button id="down4" type="button" disabled class="side"></button>
-        </div>
-      </div>
+        <div id="boxMain">
 
-      <button class="start_game" id="startButton" type="button">Prøvespill igjen</button>
+            <div id="main-content">
+                <div class="item">
+                    <button id="up0" onclick="" type="button" disabled class="side"></button>
+                    <button id="btn0" type="button" class="mid"></button>
+                    <button id="down0" type="button" disabled class="side"></button>
+                </div>
+                <div class="item">
+                    <button id="up1" onclick="" type="button" disabled class="side"></button>
+                    <button id="btn1" type="button" class="mid"></button>
+                    <button id="down1" type="button" disabled class="side"></button>
+                </div>
+                <div class="item">
+                    <button id="up2" onclick="" type="button" disabled class="side"></button>
+                    <button id="btn2" type="button" class="mid"></button>
+                    <button id="down2" type="button" disabled class="side"></button>
+                </div>
+                <div class="item">
+                    <button id="up3" onclick="" type="button" disabled class="side"></button>
+                    <button id="btn3" type="button" class="mid"></button>
+                    <button id="down3" type="button" disabled class="side"></button>
+                </div>
+                <div class="item">
+                    <button id="up4" onclick="" type="button" disabled class="side"></button>
+                    <button id="btn4" type="button" class="mid"></button>
+                    <button id="down4" type="button" disabled class="side"></button>
+                </div>
+            </div>
+
+            <div id="rewardList">
+                <span class="reward" id="points0">412 000 kr</span>
+                <span class="reward" id="points1">535 000 kr</span>
+                <span class="reward" id="points2">722 000 kr</span>
+                <span class="reward" id="points3">1 010 000 kr</span>
+                <span class="reward" id="points4">2 196 000 kr</span>
+            </div>
+
+        </div>
+
+        <button class="start_game" id="startButton" type="button">Prøvespill igjen</button>
     </div>
-  </body>
+</body>
+
 </html>
