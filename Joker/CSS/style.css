@@ -60,6 +60,20 @@ body {
   z-index: -1;
 }
 
+#home {
+  color: #c60c30;
+  position: fixed;
+  font-size: 25px;
+  top: 1.5%;
+  left: 20%;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+#home:hover {
+  color: #b40d2e;
+}
+
 #startButton {
   opacity: 0%;
   background-color: #c60c30;
