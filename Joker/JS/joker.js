@@ -13,6 +13,7 @@ class Joker {
     this.answers = [];
     for (let i = 0; i < 5; i++) {
       let randomMiddle = Math.floor(Math.random() * 10);
+      //Lager en 1/20 sjanse for å få en "JOKER" som gjør at man vinner spillet med en gang
       let randomJoker = Math.floor(Math.random() * 20);
       if (randomJoker === 19) {
         this.randomAnswer = 10;
@@ -24,6 +25,7 @@ class Joker {
       this.middle.push(randomMiddle);
       this.answers.push(this.randomAnswer);
 
+      //Resetter forskjellig info, mest classer for styling
       document.getElementById("up" + i.toString()).disabled = true;
       document.getElementById("down" + i.toString()).disabled = true;
       document.getElementById("up" + i.toString()).textContent = "";
@@ -38,7 +40,7 @@ class Joker {
       document.getElementById("down" + i.toString()).classList.remove("jump-down");
       document.getElementById("btn" + i.toString()).classList.remove("mid-jump");
     }
-
+    //Putter tall fra "middle" listen inn i midt raden, 1 og 1 med en animasjon
     let j = 0;
     let printNumber = setInterval(() => {
       document.getElementById("btn" + j.toString()).innerHTML = this.middle[j].toString();
@@ -49,6 +51,7 @@ class Joker {
       }
     }, 100);
 
+    //Mer resetting av tekst og klasser osv.
     for (let i = 0; i < 6; i++) {
       document.getElementById("points" + i.toString()).classList.remove("activeReward");
     }
@@ -71,10 +74,12 @@ class Joker {
   next(dir) {
     document.getElementById("points" + this.points.toString()).classList.remove("activeReward");
     if (dir === "up") {
+      //Spiller av hoppe animasjon når knappen trykkes
       document.getElementById("up" + this.index.toString()).classList.add("jump-up");
       setTimeout(() => {
         document.getElementById("up" + this.index.toString()).classList.remove("jump-up");
       }, 0);
+      //Sjekker om svaret er en JOKER, hvis ja slutt spillet og gi maks poeng
       if (this.answers[this.index] === 10) {
         document.getElementById(dir + this.index.toString()).classList.add("correct");
         document.getElementById("up" + this.index.toString()).innerHTML = "<img src='img/jokerhatt.svg' class='theJoker--qOT4x' data-test='theJoker' height='60px'>";
@@ -84,6 +89,7 @@ class Joker {
         this.points = 5;
         jokerGame.final();
         return;
+        //Sjekker om svaret er lavere eller høyere enn midt tallet
       } else if (this.answers[this.index] >= this.middle[this.index]) {
         document.getElementById(dir + this.index.toString()).classList.add("correct");
         document.getElementById("down" + this.index.toString()).innerHTML = "";
@@ -94,10 +100,12 @@ class Joker {
         this.points--;
       }
     } else if (dir === "down") {
+      //Spiller av hoppe animasjon når knappen trykkes
       document.getElementById("down" + this.index.toString()).classList.add("jump-down");
       setTimeout(() => {
         document.getElementById("down" + this.index.toString()).classList.remove("jump-down");
       }, 0);
+      //Sjekker om svaret er en JOKER, hvis ja slutt spillet og gi maks poeng
       if (this.answers[this.index] === 10) {
         document.getElementById(dir + this.index.toString()).classList.add("correct");
         document.getElementById("down" + this.index.toString()).innerHTML = "<img src='img/jokerhatt.svg' class='theJoker--qOT4x' data-test='theJoker' height='60px'>";
@@ -107,6 +115,7 @@ class Joker {
         this.points = 5;
         jokerGame.final();
         return;
+        //Sjekker om svaret er lavere eller høyere enn midt tallet
       } else if (this.answers[this.index] <= this.middle[this.index]) {
         document.getElementById(dir + this.index.toString()).classList.add("correct");
         document.getElementById("up" + this.index.toString()).innerHTML = "";
@@ -138,6 +147,7 @@ class Joker {
     }
 
     jokerGame.playGame();
+    //Putter inn piler i knappene
     document.getElementById("up" + this.index.toString()).innerHTML = "<i class='fa-solid fa-chevron-up'></i>";
     document.getElementById("down" + this.index.toString()).innerHTML = "<i class='fa-solid fa-chevron-down'></i>";
 
@@ -145,9 +155,11 @@ class Joker {
   }
 
   final() {
+    //Setter opp info som tekst og klasser og hviser restart knappen til spilleren
     document.getElementById("startButton").style.opacity = "100%";
     document.getElementById("startButton").style.cursor = "pointer";
     document.getElementById("tittel").textContent = "Du kunne vunnet";
+    //Hviser hvor mye poeng du fikk
     document.getElementById("intro").textContent = this.reward[this.points];
     document.getElementById("intro").classList.add("title");
     document.getElementById("points" + this.points.toString()).classList.add("activeReward");
