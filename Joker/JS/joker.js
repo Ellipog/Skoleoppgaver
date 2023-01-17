@@ -1,16 +1,16 @@
 class Joker {
   constructor(name) {
     this.name = name;
-    this.middle = []; //5 tall
-    this.answers = []; //5 tall
+    this.middle = [];
+    this.answers = [];
     this.index = 0;
     this.points = 0;
     this.reward = ["412 000 kr", "535 000 kr", "722 000 kr", "1 010 000 kr", "1 464 000 kr", "2 196 000 kr"];
   }
 
   startGame() {
-    this.middle = []; //5 tall
-    this.answers = []; //5 tall
+    this.middle = [];
+    this.answers = [];
     for (let i = 0; i < 5; i++) {
       let randomMiddle = Math.floor(Math.random() * 10);
       let randomJoker = Math.floor(Math.random() * 20);
