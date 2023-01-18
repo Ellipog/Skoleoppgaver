@@ -9,21 +9,20 @@ class Joker {
     }
 
     startGame() {
-        this.middle = [];
-        this.answers = [];
+        let randomMiddle, randomJoker, randomAnswer;
+        let middle = [],
+            answers = [];
         for (let i = 0; i < 5; i++) {
-            let randomMiddle = Math.floor(Math.random() * 10);
-            //Lager en 1/20 sjanse for å få en "JOKER" som gjør at man vinner spillet med en gang
-            let randomJoker = Math.floor(Math.random() * 35);
-            if (randomJoker === 19) {
-                this.randomAnswer = 10;
-            } else {
-                this.randomAnswer = Math.floor(Math.random() * 10);
-            }
-            document.getElementById("btn" + i.toString()).innerHTML = "";
+            randomMiddle = Math.floor(Math.random() * 10);
+            randomJoker = Math.floor(Math.random() * 35);
+            randomAnswer = randomJoker === 19 ? 10 : Math.floor(Math.random() * 10);
 
             this.middle.push(randomMiddle);
-            this.answers.push(this.randomAnswer);
+            this.answers.push(randomAnswer);
+        }
+
+        for (let i = 0; i < 5; i++) {
+            document.getElementById("btn" + i.toString()).innerHTML = "";
 
             //Resetter forskjellig info, mest classer for styling
             document.getElementById("up" + i.toString()).disabled = true;
