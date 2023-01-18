@@ -10,8 +10,8 @@ class Joker {
 
   startGame() {
     let randomMiddle, randomJoker, randomAnswer;
-    let middle = [],
-      answers = [];
+    this.middle = [];
+    this.answers = [];
     for (let i = 0; i < 5; i++) {
       randomMiddle = Math.floor(Math.random() * 10);
       randomJoker = Math.floor(Math.random() * 35);
