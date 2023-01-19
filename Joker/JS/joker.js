@@ -1,3 +1,4 @@
+let jokerGame;
 class Joker {
     constructor(name) {
         this.name = name;
@@ -9,36 +10,17 @@ class Joker {
     }
 
     startGame() {
-        let randomMiddle, randomJoker, randomAnswer;
-        this.middle = [];
-        this.answers = [];
         for (let i = 0; i < 5; i++) {
-            randomMiddle = Math.floor(Math.random() * 10);
-            randomJoker = Math.floor(Math.random() * 35);
-            randomAnswer = randomJoker === 19 ? 10 : Math.floor(Math.random() * 10);
+            let randomMiddle = Math.floor(Math.random() * 10);
+            let randomJoker = Math.floor(Math.random() * 35);
+            let randomAnswer = randomJoker === 19 ? 10 : Math.floor(Math.random() * 10);
 
             this.middle.push(randomMiddle);
             this.answers.push(randomAnswer);
         }
 
-        for (let i = 0; i < 5; i++) {
-            document.getElementById("btn" + i.toString()).innerHTML = "";
+        this.reset();
 
-            //Resetter forskjellig info, mest classer for styling
-            document.getElementById("up" + i.toString()).disabled = true;
-            document.getElementById("down" + i.toString()).disabled = true;
-            document.getElementById("up" + i.toString()).textContent = "";
-            document.getElementById("down" + i.toString()).textContent = "";
-            document.getElementById("up" + i.toString()).classList.remove("correct");
-            document.getElementById("down" + i.toString()).classList.remove("correct");
-            document.getElementById("up" + i.toString()).classList.remove("wrong");
-            document.getElementById("down" + i.toString()).classList.remove("wrong");
-            document.getElementById("up" + i.toString()).classList.remove("jump-up");
-            document.getElementById("down" + i.toString()).classList.remove("jump-up");
-            document.getElementById("up" + i.toString()).classList.remove("jump-down");
-            document.getElementById("down" + i.toString()).classList.remove("jump-down");
-            document.getElementById("btn" + i.toString()).classList.remove("mid-jump");
-        }
         //Putter tall fra "middle" listen inn i midt raden, 1 og 1, med en animasjon som spiller av når klassen "mid-jump" blir lagt til
         let j = 0;
         let printNumber = setInterval(() => {
@@ -49,15 +31,19 @@ class Joker {
                 clearInterval(printNumber);
             }
         }, 100);
+        //Kjører funkjsonen som klargjør alt for starten av spillet. 
+        this.ready();
+    }
 
+    ready() {
         //Mer resetting av tekst og klasser osv.
         for (let i = 0; i < 6; i++) {
             document.getElementById("points" + i.toString()).classList.remove("activeReward");
         }
-        document.getElementById("up0").disabled = false;
-        document.getElementById("down0").disabled = false;
         document.getElementById("up0").innerHTML = "<i class='fa-solid fa-chevron-up'></i>";
         document.getElementById("down0").innerHTML = "<i class='fa-solid fa-chevron-down'></i>";
+        document.getElementById("up0").disabled = false;
+        document.getElementById("down0").disabled = false;
         document.getElementById("points0").classList.add("activeReward");
         document.getElementById("startButton").style.opacity = "0%";
         document.getElementById("startButton").style.cursor = "default";
@@ -70,65 +56,62 @@ class Joker {
         document.getElementById("intro").classList.remove("title");
     }
 
-    next(dir) {
-        document.getElementById("points" + this.points.toString()).classList.remove("activeReward");
-        if (dir === "up") {
-            //Spiller av en hoppe animasjon når knappen trykkes, dette blir gjort ved å legge til en CSS klasse som har en "@keyframes" animasjon
-            //Bruker samme metode for alle andre animasjoner på nettsiden
-            document.getElementById("up" + this.index.toString()).classList.add("jump-up");
-            setTimeout(() => {
-                document.getElementById("up" + this.index.toString()).classList.remove("jump-up");
-            }, 0);
-            //Sjekker om svaret er en JOKER, hvis ja slutt spillet og gi maks poeng
-            if (this.answers[this.index] === 10) {
-                document.getElementById(dir + this.index.toString()).classList.add("correct");
-                document.getElementById("up" + this.index.toString()).innerHTML = "<img src='img/jokerhatt.svg' class='theJoker--qOT4x' data-test='theJoker' height='60px'>";
-                document.getElementById("down" + this.index.toString()).innerHTML = "";
-                document.getElementById("down" + this.index.toString()).disabled = true;
-                document.getElementById("up" + this.index.toString()).disabled = true;
-                this.points = 5;
-                jokerGame.final();
-                return;
-                //Sjekker om svaret er lavere eller høyere enn midt tallet
-            } else if (this.answers[this.index] >= this.middle[this.index]) {
-                document.getElementById(dir + this.index.toString()).classList.add("correct");
-                document.getElementById("down" + this.index.toString()).innerHTML = "";
-                this.points++;
-            } else {
-                document.getElementById(dir + this.index.toString()).classList.add("wrong");
-                document.getElementById("down" + this.index.toString()).innerHTML = "";
-                this.points--;
-            }
-        } else if (dir === "down") {
-            //Spiller av hoppe animasjon når knappen trykkes
-            document.getElementById("down" + this.index.toString()).classList.add("jump-down");
-            setTimeout(() => {
-                document.getElementById("down" + this.index.toString()).classList.remove("jump-down");
-            }, 0);
-            //Sjekker om svaret er en JOKER, hvis ja slutt spillet og gi maks poeng
-            if (this.answers[this.index] === 10) {
-                document.getElementById(dir + this.index.toString()).classList.add("correct");
-                document.getElementById("down" + this.index.toString()).innerHTML = "<img src='img/jokerhatt.svg' class='theJoker--qOT4x' data-test='theJoker' height='60px'>";
-                document.getElementById("up" + this.index.toString()).innerHTML = "";
-                document.getElementById("up" + this.index.toString()).disabled = true;
-                document.getElementById("down" + this.index.toString()).disabled = true;
-                this.points = 5;
-                jokerGame.final();
-                return;
-                //Sjekker om svaret er lavere eller høyere enn midt tallet
-            } else if (this.answers[this.index] <= this.middle[this.index]) {
-                document.getElementById(dir + this.index.toString()).classList.add("correct");
-                document.getElementById("up" + this.index.toString()).innerHTML = "";
-                this.points++;
-            } else {
-                document.getElementById(dir + this.index.toString()).classList.add("wrong");
-                document.getElementById("up" + this.index.toString()).innerHTML = "";
-                this.points--;
-            }
+    reset() {
+        //Resetter forskjellig info, mest classer for styling
+        for (let i = 0; i < 5; i++) {
+            let btn = document.getElementById(`btn${i}`);
+            let up = document.getElementById(`up${i}`);
+            let down = document.getElementById(`down${i}`);
+            btn.innerHTML = "";
+            up.disabled = true;
+            down.disabled = true;
+            up.textContent = "";
+            down.textContent = "";
+            up.classList.remove("correct", "wrong", "jump-up", "jump-down");
+            down.classList.remove("correct", "wrong", "jump-up", "jump-down");
+            btn.classList.remove("mid-jump");
         }
-        document.getElementById(dir + this.index.toString()).innerHTML = this.answers[this.index];
-        document.getElementById("up" + this.index.toString()).disabled = true;
-        document.getElementById("down" + this.index.toString()).disabled = true;
+    }
+
+    check(dir, undir) {
+        //Sjekker om svaret er en JOKER, hvis ja slutt spillet og gi maks poeng
+        if (this.answers[this.index] === 10) {
+            dir.classList.add("correct");
+            dir.innerHTML = "<img src='img/jokerhatt.svg' class='theJoker--qOT4x' data-test='theJoker' height='60px'>";
+            undir.innerHTML = "";
+            undir.disabled = true;
+            dir.disabled = true;
+            this.points = 5;
+            jokerGame.final();
+            return;
+        } else if (this.answers[this.index] >= this.middle[this.index]) {
+            dir.classList.add("correct");
+            undir.innerHTML = "";
+            this.points++;
+        } else {
+            dir.classList.add("wrong");
+            undir.innerHTML = "";
+            this.points--;
+        }
+    }
+
+    next(dirI, undirI) {
+        let dir = document.getElementById(dirI + this.index.toString());
+        let undir = document.getElementById(undirI + this.index.toString());
+        document.getElementById("points" + this.points.toString()).classList.remove("activeReward");
+        if (dirI === "up") { this.check(dir, undir) } else if (dirI === "down") { this.check(dir, undir) }
+
+        //Spiller av en hoppe animasjon når knappen trykkes, dette blir gjort ved å legge til en CSS klasse som har en "@keyframes" animasjon
+        //Bruker samme metode for alle andre animasjoner på nettsiden
+        if (dirI === "up") {
+            dir.classList.add("jump-up");
+        } else {
+            dir.classList.add("jump-down");
+        }
+
+        dir.innerHTML = this.answers[this.index];
+        dir.disabled = true;
+        undir.disabled = true;
 
         this.index++;
 
@@ -144,12 +127,12 @@ class Joker {
 
         if (this.index === 5) {
             jokerGame.final();
+        } else {
+            jokerGame.playGame();
+            //Putter inn piler i knappene
+            document.getElementById("up" + this.index.toString()).innerHTML = "<i class='fa-solid fa-chevron-up'></i>";
+            document.getElementById("down" + this.index.toString()).innerHTML = "<i class='fa-solid fa-chevron-down'></i>";
         }
-
-        jokerGame.playGame();
-        //Putter inn piler i knappene
-        document.getElementById("up" + this.index.toString()).innerHTML = "<i class='fa-solid fa-chevron-up'></i>";
-        document.getElementById("down" + this.index.toString()).innerHTML = "<i class='fa-solid fa-chevron-down'></i>";
 
         document.getElementById("points" + this.points.toString()).classList.add("activeReward");
     }
@@ -166,17 +149,16 @@ class Joker {
     }
 
     playGame() {
-        document.getElementById("up" + this.index.toString()).onclick = (e) => jokerGame.next("up");
-        document.getElementById("down" + this.index.toString()).onclick = (e) => jokerGame.next("down");
+        document.getElementById("up" + this.index.toString()).onclick = (e) => jokerGame.next("up", "down");
+        document.getElementById("down" + this.index.toString()).onclick = (e) => jokerGame.next("down", "up");
     }
 }
 
-let jokerGame = new Joker("test");
-
-document.getElementById("startButton").onclick = (e) => {
+function start() {
+    jokerGame = new Joker("spill");
     jokerGame.startGame();
     jokerGame.playGame();
-};
+}
 
-jokerGame.startGame();
-jokerGame.playGame();
+document.getElementById("startButton").onclick = (e) => { start(); };
+start();
