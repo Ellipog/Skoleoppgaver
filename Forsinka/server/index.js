@@ -1,19 +1,40 @@
+import express from "express";
+import fetch from "node-fetch";
+import cors from "cors";
+import mongoose from "mongoose";
+const app = express();
+const db = "mongodb+srv://ForsinkaAdmin:yrb7hKeNhX8Ndb8F@forsinka.mm354pn.mongodb.net/Forsinka";
+mongoose.set("strictQuery", false);
+mongoose.connect(db, {});
+const mappedCallsSchema = new mongoose.Schema({
+  id: String,
+  line: String,
+  aimedTime: Date,
+  expectedTime: Date,
+  name: String,
+});
+const Forsinkelse = mongoose.model("Forsinkelse", mappedCallsSchema);
+let mappedCalls;
 let stopPlaceId = "60944";
-let forsinkaNew = [];
-fetch("https://api.entur.io/journey-planner/v3/graphql", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "ET-Client-Name": "your-client-name",
-    "ET-Client-ID": "your-client-id",
-  },
-  body: JSON.stringify({
-    variables: {},
-    query: `
+
+fetchData();
+setInterval(fetchData, 60000);
+
+function fetchData() {
+  fetch("https://api.entur.io/journey-planner/v3/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "ET-Client-Name": "your-client-name",
+      "ET-Client-ID": "your-client-id",
+    },
+    body: JSON.stringify({
+      variables: {},
+      query: `
     query {
       stopPlace(id: "NSR:StopPlace:${stopPlaceId}") {
         name
-        estimatedCalls(timeRange: 3600, numberOfDepartures: 20) {
+        estimatedCalls(timeRange: 3600, numberOfDepartures: 70) {
           realtime
           aimedArrivalTime
           expectedArrivalTime
@@ -21,6 +42,7 @@ fetch("https://api.entur.io/journey-planner/v3/graphql", {
             line {
                 id
             }
+            id
           }
           quay {
               name
@@ -29,55 +51,48 @@ fetch("https://api.entur.io/journey-planner/v3/graphql", {
       }
     }
     `,
-  }),
-})
-  .then((response) => response.json())
-  .then((data) => {
-    const departures = data.data.stopPlace.estimatedCalls;
-    departures.forEach((departure) => {
-      forsinkaNew.push(new Forsinka(departure.aimedArrivalTime, departure.expectedArrivalTime, departure.serviceJourney.line.id, departure.quay.name));
-    });
+    }),
   })
-  .catch((error) => console.error(error));
-
-class Forsinka {
-  constructor(aimedArrivalTime, expectedArrivalTime, lineID, lineName) {
-    this.aimedArrivalTime = aimedArrivalTime;
-    this.expectedArrivalTime = expectedArrivalTime;
-    this.lineID = lineID.replace("RUT:Line:", "").replace("NSB:Line:", "");
-    this.lineName = lineName;
-  }
-
-  Latest() {
-    let aimedTime = Date.parse(this.aimedArrivalTime);
-    let expectedTime = Date.parse(this.expectedArrivalTime);
-    let timeDiff = expectedTime - aimedTime;
-    let diffMins = Math.round(((timeDiff % 86400000) % 3600000) / 60000);
-    const data = {
-      forsinkelse: diffMins,
-      forventet: expectedTime,
-      planlagt: aimedTime,
-    };
-    if (diffMins === 0) {
-    } else {
-      console.log(
-        this.lineID +
-          " " +
-          this.lineName +
-          "\nOriginal: " +
-          new Date(aimedTime).toTimeString().slice(0, 5) +
-          "\nForventet: " +
-          new Date(expectedTime).toTimeString().slice(0, 5) +
-          "\nDifference: " +
-          diffMins +
-          " minutes"
-      );
-    }
-  }
+    .then((response) => response.json())
+    .then((data) => {
+      let estimatedCalls = data.data.stopPlace.estimatedCalls;
+      //estimatedCalls = estimatedCalls.filter((i) => i.aimedArrivalTime != i.expectedArrivalTime);
+      estimatedCalls = estimatedCalls.filter((i) => Math.round((((Date.parse(i.expectedArrivalTime) - Date.parse(i.aimedArrivalTime)) % 86400000) % 3600000) / 60000));
+      mappedCalls = estimatedCalls.map((item) => {
+        return {
+          id: item.serviceJourney.id,
+          line: item.serviceJourney.line.id.replace("RUT:Line:", "").replace("NSB:Line:", ""),
+          aimedTime: Date.parse(item.aimedArrivalTime),
+          expectedTime: Date.parse(item.expectedArrivalTime),
+          name: item.quay.name,
+          // timeDiff: expectedTime - aimedTime,
+          // diffMin: Math.round(((timeDiff % 86400000) % 3600000) / 60000),
+        };
+      });
+      mappedCalls.forEach((data) => {
+        Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => {});
+      });
+    })
+    .catch((error) => console.error(error));
 }
 
-document.getElementById("forsinkaLatest").onclick = (e) => {
-  forsinkaNew.forEach((forsinka) => {
-    forsinka.Latest();
-  });
-};
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
+
+app.get("/forsinkelser", (req, res) => {
+  Forsinkelse.find()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ message: "Error retrieving data from the database" });
+    });
+});
+
+app.listen(3001, () => {
+  console.log("listening on 3001");
+});
