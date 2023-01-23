@@ -3,6 +3,10 @@ import fetch from "node-fetch";
 import cors from "cors";
 import mongoose from "mongoose";
 const app = express();
+const server = https.createServer({
+    cert: fs.readFileSync("cert.pem"),
+    key: fs.readFileSync("key.pem"),
+},app);
 const db = "mongodb+srv://ForsinkaAdmin:yrb7hKeNhX8Ndb8F@forsinka.mm354pn.mongodb.net/Forsinka";
 mongoose.set("strictQuery", false);
 mongoose.connect(db, {});
@@ -76,13 +80,13 @@ function fetchData() {
         .catch((error) => console.error(error));
 }
 
-app.use(
+server.use(
     cors({
         origin: "*",
     })
 );
 
-app.get("/forsinkelser", (req, res) => {
+server.get("/forsinkelser", (req, res) => {
     Forsinkelse.find()
         .then((data) => {
             res.json(data);
@@ -93,6 +97,6 @@ app.get("/forsinkelser", (req, res) => {
         });
 });
 
-app.listen(3001, () => {
-    console.log("listening on 3001");
+server.listen(25592, () => {
+    console.log("listening on 25592");
 });
