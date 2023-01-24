@@ -2,22 +2,17 @@ import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
 import mongoose from "mongoose";
-import fs from "fs";
-import https from "https";
 const app = express();
-const server = https.createServer({
-    cert: fs.readFileSync("cert.pem"),
-    key: fs.readFileSync("key.pem"),
-},app);
+
 const db = "mongodb+srv://ForsinkaAdmin:yrb7hKeNhX8Ndb8F@forsinka.mm354pn.mongodb.net/Forsinka";
 mongoose.set("strictQuery", false);
 mongoose.connect(db, {});
 const mappedCallsSchema = new mongoose.Schema({
-    id: String,
-    line: String,
-    aimedTime: Date,
-    expectedTime: Date,
-    name: String,
+  id: String,
+  line: String,
+  aimedTime: Date,
+  expectedTime: Date,
+  name: String,
 });
 const Forsinkelse = mongoose.model("Forsinkelse", mappedCallsSchema);
 let mappedCalls;
@@ -27,16 +22,16 @@ fetchData();
 setInterval(fetchData, 60000);
 
 function fetchData() {
-    fetch("https://api.entur.io/journey-planner/v3/graphql", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "ET-Client-Name": "your-client-name",
-                "ET-Client-ID": "your-client-id",
-            },
-            body: JSON.stringify({
-                variables: {},
-                query: `
+  fetch("https://api.entur.io/journey-planner/v3/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "ET-Client-Name": "your-client-name",
+      "ET-Client-ID": "your-client-id",
+    },
+    body: JSON.stringify({
+      variables: {},
+      query: `
     query {
       stopPlace(id: "NSR:StopPlace:${stopPlaceId}") {
         name
@@ -57,48 +52,47 @@ function fetchData() {
       }
     }
     `,
-            }),
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            let estimatedCalls = data.data.stopPlace.estimatedCalls;
-            //estimatedCalls = estimatedCalls.filter((i) => i.aimedArrivalTime != i.expectedArrivalTime);
-            estimatedCalls = estimatedCalls.filter((i) => Math.round((((Date.parse(i.expectedArrivalTime) - Date.parse(i.aimedArrivalTime)) % 86400000) % 3600000) / 60000));
-            mappedCalls = estimatedCalls.map((item) => {
-                return {
-                    id: item.serviceJourney.id,
-                    line: item.serviceJourney.line.id.replace("RUT:Line:", "").replace("NSB:Line:", ""),
-                    aimedTime: Date.parse(item.aimedArrivalTime),
-                    expectedTime: Date.parse(item.expectedArrivalTime),
-                    name: item.quay.name,
-                    // timeDiff: expectedTime - aimedTime,
-                    // diffMin: Math.round(((timeDiff % 86400000) % 3600000) / 60000),
-                };
-            });
-            mappedCalls.forEach((data) => {
-                Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => {});
-            });
-        })
-        .catch((error) => console.error(error));
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      let estimatedCalls = data.data.stopPlace.estimatedCalls;
+      //estimatedCalls = estimatedCalls.filter((i) => i.aimedArrivalTime != i.expectedArrivalTime);
+      estimatedCalls = estimatedCalls.filter((i) => Math.round((((Date.parse(i.expectedArrivalTime) - Date.parse(i.aimedArrivalTime)) % 86400000) % 3600000) / 60000));
+      mappedCalls = estimatedCalls.map((item) => {
+        return {
+          id: item.serviceJourney.id,
+          line: item.serviceJourney.line.id.replace("RUT:Line:", "").replace("NSB:Line:", ""),
+          aimedTime: Date.parse(item.aimedArrivalTime),
+          expectedTime: Date.parse(item.expectedArrivalTime),
+          name: item.quay.name,
+          // timeDiff: expectedTime - aimedTime,
+          // diffMin: Math.round(((timeDiff % 86400000) % 3600000) / 60000),
+        };
+      });
+      mappedCalls.forEach((data) => {
+        Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => {});
+      });
+    })
+    .catch((error) => console.error(error));
 }
 
-server.use(
-    cors({
-        origin: "*",
-    })
-);
+app.use(cors({
+  origin: "https://forsinka.chillcraft.co",
+  credentials: true,
+}));
 
-server.get("/forsinkelser", (req, res) => {
-    Forsinkelse.find()
-        .then((data) => {
-            res.json(data);
-        })
-        .catch((error) => {
-            console.error(error);
-            res.status(500).json({ message: "Error retrieving data from the database" });
-        });
+app.get("/forsinkelser", (req, res) => {
+  Forsinkelse.find()
+      .then((data) => {
+          res.json(data);
+      })
+      .catch((error) => {
+          console.error(error);
+          res.status(500).json({ message: "Error retrieving data from the database" });
+      });
 });
 
-server.listen(25592, () => {
+app.listen(25592, () => {
     console.log("listening on 25592");
 });
