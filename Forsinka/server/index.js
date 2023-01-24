@@ -72,19 +72,25 @@ function fetchData() {
         };
       });
       mappedCalls.forEach((data) => {
-        Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => { });
+        Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => {});
       });
     })
     .catch((error) => console.error(error));
 }
 
-app.use(cors({
-  origin: "https://forsinka.chillcraft.co",
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: "https://forsinka.chillcraft.co",
+    credentials: true,
+  })
+);
 
 app.get("/forsinkelser", (req, res) => {
+  let skip = req.query.skip ? parseInt(req.query.skip) : 0;
   Forsinkelse.find()
+    .sort({ aimedTime: -1 })
+    .skip(skip)
+    .limit(20)
     .then((data) => {
       const compressed = pako.deflate(JSON.stringify(data));
       res.json(compressed);
