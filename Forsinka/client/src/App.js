@@ -6,7 +6,7 @@ function App() {
     const [forsinkelser, setForsinkelser] = useState([]);
 
     async function test() {
-        fetch("httpsn://node.binders.net:25592/forsinkelser")
+        fetch("https://node.binders.net:25592/forsinkelser")
             .then((res) => res.json())
             .then((data) => {
                 data = data.sort((a, b) => {
