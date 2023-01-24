@@ -1,8 +1,9 @@
 import express from "express";
 import fetch from "node-fetch";
-import cors from "cors";
 import mongoose from "mongoose";
+import Middleware from "./middleware.js"
 const app = express();
+
 
 const db = "mongodb+srv://ForsinkaAdmin:yrb7hKeNhX8Ndb8F@forsinka.mm354pn.mongodb.net/Forsinka";
 mongoose.set("strictQuery", false);
@@ -71,28 +72,25 @@ function fetchData() {
         };
       });
       mappedCalls.forEach((data) => {
-        Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => {});
+        Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => { });
       });
     })
     .catch((error) => console.error(error));
 }
 
-app.use(cors({
-  origin: "https://forsinka.chillcraft.co",
-  credentials: true,
-}));
+app.use(Middleware);
 
 app.get("/forsinkelser", (req, res) => {
   Forsinkelse.find()
-      .then((data) => {
-          res.json(data);
-      })
-      .catch((error) => {
-          console.error(error);
-          res.status(500).json({ message: "Error retrieving data from the database" });
-      });
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ message: "Error retrieving data from the database" });
+    });
 });
 
 app.listen(25592, () => {
-    console.log("listening on 25592");
+  console.log("listening on 25592");
 });
