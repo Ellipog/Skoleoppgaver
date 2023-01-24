@@ -1,23 +1,21 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import Forsinkelse from "./components/Forsinkelse";
-import pako from 'pako';
 
 function App() {
   const [forsinkelser, setForsinkelser] = useState([]);
 
   async function test() {
-    fetch("https://forsinkasrv.chillcraft.co/forsinkelser", {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-    })
+    fetch("https://forsinkasrv.chillcraft.co/forsinkelser",{
+        method:"GET",
+        mode: "cors",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
       .then((res) => res.json())
-      .then((compressed) => {
-        const data = pako.inflate(compressed, { to: 'JSON' });
+      .then((data) => {
         data = data.sort((a, b) => {
           return new Date(b.aimedTime) - new Date(a.aimedTime);
         });
