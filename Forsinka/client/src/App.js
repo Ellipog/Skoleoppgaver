@@ -17,7 +17,10 @@ function App() {
     })
       .then((res) => res.json())
       .then((compressed) => {
+        console.log("DEKAN DE")
+        console.log(compressed)
         const data = pako.inflate(compressed, { to: 'JSON' });
+        console.log(data)
         data = data.sort((a, b) => {
           return new Date(b.aimedTime) - new Date(a.aimedTime);
         });
