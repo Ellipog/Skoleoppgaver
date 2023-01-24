@@ -2,6 +2,7 @@ import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
 import mongoose from "mongoose";
+import pako from "pako";
 const app = express();
 
 const db = "mongodb+srv://ForsinkaAdmin:yrb7hKeNhX8Ndb8F@forsinka.mm354pn.mongodb.net/Forsinka";
@@ -85,7 +86,8 @@ app.use(cors({
 app.get("/forsinkelser", (req, res) => {
   Forsinkelse.find()
     .then((data) => {
-      res.json(data);
+      const compressed = pako.deflate(JSON.stringify(data));
+      res.json(compressed);
     })
     .catch((error) => {
       console.error(error);
