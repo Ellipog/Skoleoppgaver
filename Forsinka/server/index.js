@@ -2,6 +2,7 @@ import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
 import mongoose from "mongoose";
+import pako from "pako";
 const app = express();
 
 const db = "mongodb+srv://ForsinkaAdmin:yrb7hKeNhX8Ndb8F@forsinka.mm354pn.mongodb.net/Forsinka";
@@ -71,21 +72,28 @@ function fetchData() {
         };
       });
       mappedCalls.forEach((data) => {
-        Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => { });
+        Forsinkelse.findOneAndUpdate({ id: data.id, aimedTime: data.aimedTime }, data, { upsert: true, new: true }, (err, existingData) => {});
       });
     })
     .catch((error) => console.error(error));
 }
 
-app.use(cors({
-  origin: "https://forsinka.chillcraft.co",
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: "https://forsinka.chillcraft.co",
+    credentials: true,
+  })
+);
 
 app.get("/forsinkelser", (req, res) => {
+  let skip = req.query.skip ? parseInt(req.query.skip) : 0;
   Forsinkelse.find()
+    .sort({ aimedTime: -1 })
+    .skip(skip)
+    .limit(20)
     .then((data) => {
-      res.json(data);
+      const compressed = pako.deflate(JSON.stringify(data));
+      res.json(compressed);
     })
     .catch((error) => {
       console.error(error);
