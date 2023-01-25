@@ -1,9 +1,8 @@
 import express from "express";
 import fetch from "node-fetch";
+import cors from "cors";
 import mongoose from "mongoose";
-import Middleware from "./middleware.js"
 const app = express();
-
 
 const db = "mongodb+srv://ForsinkaAdmin:yrb7hKeNhX8Ndb8F@forsinka.mm354pn.mongodb.net/Forsinka";
 mongoose.set("strictQuery", false);
@@ -78,7 +77,10 @@ function fetchData() {
     .catch((error) => console.error(error));
 }
 
-app.use(Middleware);
+app.use(cors({
+  origin: "https://forsinka.chillcraft.co",
+  credentials: true,
+}));
 
 app.get("/forsinkelser", (req, res) => {
   Forsinkelse.find()
