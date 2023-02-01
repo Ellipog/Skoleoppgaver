@@ -29,8 +29,20 @@ app.get("/fetchdb", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  const data = req.body;
-  console.log(data);
+  const { Fornavn, Etternavn, Adresse, Postnummer, Poststed } = req.query;
+  db.query(
+  `INSERT INTO deltaker (Fornavn, Etternavn, Adresse, Postnummer, Poststed)
+  VALUES (?, ?, ?, ?, ?)`,
+  [Fornavn, Etternavn, Adresse, Postnummer, Poststed],
+  (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error inserting into database");
+      return;
+    }
+    res.status(201).send("Registration successful");
+  }
+);
 });
 
 app.listen(port, () => {

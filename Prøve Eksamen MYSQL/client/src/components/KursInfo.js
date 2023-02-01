@@ -24,25 +24,7 @@ function KursInfo(props) {
 
   function handleRegistration() {
     if (registration.Fornavn && registration.Etternavn && registration.Adresse && registration.Postnummer && registration.Poststed) {
-      fetch("http://localhost:3001/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ registration }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(response.statusText);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      fetch(`http://localhost:3001/register?Fornavn=${registration.Fornavn}&Etternavn=${registration.Etternavn}&Adresse=${registration.Adresse}&Postnummer=${registration.Postnummer}&Poststed=${registration.Poststed}`)
     }
   }
 
@@ -72,7 +54,7 @@ function KursInfo(props) {
         </div>
         <div className="inputElement">
           <p>Postnummer: </p>
-          <input className="input" placeholder="Feks. 1400" name="Postnummer" value={registration.Postnummer} onChange={handleInputChange}></input>
+          <input className="input" type="number" placeholder="Feks. 1400" name="Postnummer" value={registration.Postnummer} onChange={handleInputChange}></input>
         </div>
         <div className="inputElement">
           <p>Poststed: </p>
