@@ -1,0 +1,147 @@
+body {
+  margin: 0;
+  color: white;
+  padding: 0;
+}
+
+.main {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: gray;
+}
+
+.kursBox {
+  background-color: rgb(92, 92, 92);
+  border-radius: 10px;
+  width: 40%;
+  padding: 1%;
+  margin: 1%;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  color: white;
+  font-weight: 600;
+}
+
+.mainTitle {
+  position: absolute;
+  top: 1%;
+}
+
+.kursTitle {
+  margin: 2%;
+  font-size: 1.3rem;
+}
+
+.kursDate {
+  margin: 2%;
+  font-size: 0.8rem;
+}
+
+.button {
+  width: 30%;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.button:hover {
+  cursor: pointer;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.backButton {
+  font-size: 1.7rem;
+  height: 7%;
+  width: 15%;
+}
+
+.pmButton {
+  font-size: 1.3rem;
+  height: 50%;
+  width: 40%;
+}
+
+.kursTitlesBox {
+  width: 70%;
+}
+
+.kursInfoBox {
+  background-color: rgb(92, 92, 92);
+  border-radius: 10px;
+  width: 40%;
+  padding: 1%;
+  margin: 1%;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  color: white;
+  font-weight: 600;
+  align-items: center;
+}
+
+.kursInfoTitlesBox {
+  width: 70%;
+}
+
+.registrationBox {
+  background-color: rgb(99, 99, 99);
+  border-radius: 10px;
+  width: 37%;
+  padding: 1%;
+  margin: 1%;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  color: white;
+  font-weight: 600;
+  align-items: center;
+}
+
+.mainInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  border: 0;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 100%;
+  padding: 2%;
+  margin: 1%;
+}
+
+.registrationBox {
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+  padding-top: 0;
+}
+
+.inputElement {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.inputElement p {
+  width: 20%;
+}
+
+.registrationButton {
+  margin-top: 0.7vw;
+  height: 5vh;
+  width: 12vw;
+}
